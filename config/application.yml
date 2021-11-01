@@ -1,0 +1,9 @@
+datasource:
+  driverName: mysql
+  host: 127.0.0.1
+  port: 3306
+  database: appupgrade
+  username: root
+  password: root
+  charset: utf8
+  loc: Asia/Shanghai

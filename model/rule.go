@@ -1,9 +1,13 @@
 package model
 
+import "github.com/jinzhu/gorm"
+
 type Rule struct {
+	gorm.Model
 	// Rule Condition
 	Platform string `json:"platform"`
-	DeviceIdList []string `json:"device_id_list"`
+	NewDeviceIdList string `json:"new_device_id_list"`
+	DeletedDeviceIdList string `json:"deleted_device_id_list"`
 	MaxUpdateVersionCode string `json:"max_update_version_code"`
 	MinUpdateVersionCode string `json:"min_update_version_code"`
 	MaxOsApi int `json:"max_os_api"`
@@ -29,7 +33,8 @@ func GetAllRules() *[]Rule {
 		Platform:             "Android",
 		UpdateVersionCode:    "10.0.1",
 		Md5:                  "1234567",
-		DeviceIdList:         []string{"123", "456", "789"},
+		NewDeviceIdList:      "123,456,789",
+		DeletedDeviceIdList:  "",
 		MaxUpdateVersionCode: "10.0.3",
 		MinUpdateVersionCode: "10.0.0",
 		MaxOsApi:             10,
@@ -46,7 +51,8 @@ func GetAllRules() *[]Rule {
 		Platform:             "ios",
 		UpdateVersionCode:    "10.0.1",
 		Md5:                  "1234567",
-		DeviceIdList:         []string{"123", "456"},
+		NewDeviceIdList:      "123,456",
+		DeletedDeviceIdList:  "",
 		MaxUpdateVersionCode: "10.0.3",
 		MinUpdateVersionCode: "10.0.0",
 		MaxOsApi:             10,
