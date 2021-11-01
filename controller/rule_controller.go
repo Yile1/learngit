@@ -3,6 +3,7 @@ package controller
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/cast"
+	"techtrainingcamp-AppUpgrade/common"
 	"techtrainingcamp-AppUpgrade/model"
 	"techtrainingcamp-AppUpgrade/utils"
 )
@@ -16,10 +17,10 @@ func Hit(c *gin.Context) {
 
 	platform := c.PostForm("platform")
 	channel := c.PostForm("channel")
-	deviceId := c.PostForm("deviceId")
-	osApi := c.PostForm("osApi")
-	updateVersionCode := c.PostForm("updateVersionCode")
-	cpuArch := c.PostForm("cpuArch")
+	deviceId := c.PostForm("device_id")
+	osApi := c.PostForm("os_api")
+	updateVersionCode := c.PostForm("update_version_code")
+	cpuArch := c.PostForm("cpu_arch")
 
 	rules := model.GetAllRules()
 
@@ -30,7 +31,7 @@ func Hit(c *gin.Context) {
 		if platform != (*rules)[index].Platform || channel != (*rules)[index].Channel{
 			continue
 		}
-		if !utils.IsStringInArray(deviceId, utils.SplitStringToList((*rules)[index].NewDeviceIdList)) {
+		if !utils.IsStringInArray(deviceId, utils.SplitDeviceStringToList((*rules)[index].NewDeviceIdList)) {
 			continue
 		}
 		if cpuArch != (*rules)[index].CpuArch {
@@ -54,7 +55,44 @@ func Hit(c *gin.Context) {
 
 func AddRule(c *gin.Context)  {
 	// 将Rule添加到数据库
-	c.JSON(200, gin.H{"message": "Success"})
+	DB := common.GetDB()
+
+	platform := c.PostForm("platform")
+	updateVersionCode := c.PostForm("update_version_code")
+	md5 := c.PostForm("md_5")
+	newDeviceIdList := c.PostForm("new_device_id_list")
+	deletedDeviceIdList := c.PostForm("deleted_device_id_list")
+	maxUpdateVersionCode := c.PostForm("max_update_version_code")
+	minUpdateVersionCode := c.PostForm("min_update_version_code")
+	maxOsApi := cast.ToInt(c.PostForm("max_os_api"))
+	minOsApi := cast.ToInt(c.PostForm("min_os_api"))
+	cpuArch := c.PostForm("cpu_arch")
+	channel := c.PostForm("channel")
+	title := c.PostForm("title")
+	updateTips := c.PostForm("update_tips")
+	downloadUrl := c.PostForm("download_url")
+
+	newRule := model.Rule{
+		Platform:             platform,
+		UpdateVersionCode:    updateVersionCode,
+		Md5:                  md5,
+		NewDeviceIdList:      newDeviceIdList,
+		DeletedDeviceIdList:  deletedDeviceIdList,
+		MaxUpdateVersionCode: maxUpdateVersionCode,
+		MinUpdateVersionCode: minUpdateVersionCode,
+		MaxOsApi:             maxOsApi,
+		MinOsApi:             minOsApi,
+		CpuArch:              cpuArch,
+		Channel:              channel,
+		Title:                title,
+		UpdateTips:           updateTips,
+		DownlaodUrl:          downloadUrl,
+		IsAvailable:          true,
+	}
+
+	DB.Create(&newRule)
+
+	c.JSON(200, gin.H{"message": "Success", "newRule": newRule})
 }
 
 func DeleteRule(c *gin.Context)  {

@@ -6,7 +6,7 @@ import (
 )
 
 func customizerouter(r *gin.Engine) {
-	r.POST("/ping", controller.Pong)
+	r.GET("/ping", controller.Pong)
 	r.POST("/judge", controller.Hit)
 	r.POST("/addRule", controller.AddRule)
 	r.POST("/deleteRule", controller.DeleteRule)

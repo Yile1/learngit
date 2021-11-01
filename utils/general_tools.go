@@ -16,6 +16,6 @@ func IsUpdateVersionAvailable(updateVersionCode string, minUpdateVersionCode str
 	return true
 }
 
-func SplitStringToList(str string)  []string{
+func SplitDeviceStringToList(str string)  []string{
 	return strings.Split(str,",")
 }
