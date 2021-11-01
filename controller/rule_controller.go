@@ -24,6 +24,9 @@ func Hit(c *gin.Context) {
 	rules := model.GetAllRules()
 
 	for index := 0; index < len(*rules); index++ {
+		if !(*rules)[index].IsAvailable {
+			continue
+		}
 		if platform != (*rules)[index].Platform || channel != (*rules)[index].Channel{
 			continue
 		}
@@ -47,4 +50,24 @@ func Hit(c *gin.Context) {
 		break
 	}
 	c.JSON(200, gin.H{"downloadUrl": downloadUrl, "md5": md5, "title": title, "updateTips": updateTips, "updateVersionCode": updateVersionCode})
+}
+
+func AddRule(c *gin.Context)  {
+	// 将Rule添加到数据库
+	c.JSON(200, gin.H{"message": "Success"})
+}
+
+func DeleteRule(c *gin.Context)  {
+	// 将Rule从数据库删除
+	c.JSON(200, gin.H{"message": "Success"})
+}
+
+func DisableRule(c *gin.Context)  {
+	// 将Rule禁用
+	c.JSON(200, gin.H{"message": "Success"})
+}
+
+func EnableRule(c *gin.Context)  {
+	// 将Rule启用
+	c.JSON(200, gin.H{"message": "Success"})
 }
