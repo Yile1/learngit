@@ -17,6 +17,9 @@ type Rule struct {
 	Title string `json:"title"`
 	UpdateTips string `json:"update_tips"`
 	UpdateVersionCode string `json:"update_version_code"`
+
+	// Available
+	IsAvailable bool `json:"is_available"`
 }
 
 func GetAllRules() *[]Rule {
@@ -36,6 +39,7 @@ func GetAllRules() *[]Rule {
 		Title:                "欢迎升级",
 		UpdateTips:           "在升级之后，请及时给予我们反馈哦",
 		DownlaodUrl:          "www.baidu.com",
+		IsAvailable:          true,
 	})
 
 	rules = append(rules, Rule{
@@ -52,6 +56,7 @@ func GetAllRules() *[]Rule {
 		Title:                "欢迎升级",
 		UpdateTips:           "在升级之后，请及时给予我们反馈哦",
 		DownlaodUrl:          "www.baidu.com",
+		IsAvailable:          true,
 	})
 
 	return &rules
