@@ -9,10 +9,13 @@ import (
 )
 
 func Hit(c *gin.Context) {
+	DB := common.GetDB()
+
 	var downloadUrl string
 	var md5 string
 	var title string
 	var updateTips string
+	var rules []model.Rule
 	// var updateVersionCode string
 
 	platform := c.PostForm("platform")
@@ -22,31 +25,32 @@ func Hit(c *gin.Context) {
 	updateVersionCode := c.PostForm("update_version_code")
 	cpuArch := c.PostForm("cpu_arch")
 
-	rules := model.GetAllRules()
+	DB.Find(&rules)
+	//rules = model.GetAllRules()
 
-	for index := 0; index < len(*rules); index++ {
-		if !(*rules)[index].IsAvailable {
+	for index := 0; index < len(rules); index++ {
+		if !(rules)[index].IsAvailable {
 			continue
 		}
-		if platform != (*rules)[index].Platform || channel != (*rules)[index].Channel{
+		if platform != (rules)[index].Platform || channel != (rules)[index].Channel{
 			continue
 		}
-		if !utils.IsStringInArray(deviceId, utils.SplitDeviceStringToList((*rules)[index].NewDeviceIdList)) {
+		if !utils.IsStringInArray(deviceId, utils.SplitDeviceStringToList((rules)[index].NewDeviceIdList)) {
 			continue
 		}
-		if cpuArch != (*rules)[index].CpuArch {
+		if cpuArch != (rules)[index].CpuArch {
 			continue
 		}
-		if cast.ToInt(osApi) < (*rules)[index].MinOsApi || cast.ToInt(osApi) > (*rules)[index].MaxOsApi {
+		if cast.ToInt(osApi) < (rules)[index].MinOsApi || cast.ToInt(osApi) > (rules)[index].MaxOsApi {
 			continue
 		}
-		if !utils.IsUpdateVersionAvailable(updateVersionCode, (*rules)[index].MinUpdateVersionCode, (*rules)[index].MaxUpdateVersionCode) {
+		if !utils.IsUpdateVersionAvailable(updateVersionCode, (rules)[index].MinUpdateVersionCode, (rules)[index].MaxUpdateVersionCode) {
 			continue
 		}
-		downloadUrl = (*rules)[index].DownlaodUrl
-		md5  = (*rules)[index].Md5
-		title = (*rules)[index].Title
-		updateTips = (*rules)[index].UpdateTips
+		downloadUrl = (rules)[index].DownlaodUrl
+		md5  = (rules)[index].Md5
+		title = (rules)[index].Title
+		updateTips = (rules)[index].UpdateTips
 
 		break
 	}
