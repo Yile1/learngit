@@ -54,7 +54,7 @@ func Hit(c *gin.Context) {
 
 		break
 	}
-	c.JSON(200, gin.H{"downloadUrl": downloadUrl, "md5": md5, "title": title, "updateTips": updateTips, "updateVersionCode": updateVersionCode})
+	c.JSON(200, gin.H{"download_url": downloadUrl, "md5": md5, "title": title, "update_tips": updateTips, "update_version_code": updateVersionCode})
 }
 
 func AddRule(c *gin.Context)  {
