@@ -13,6 +13,8 @@ func main() {
 	db := common.InitDB()
 	defer db.Close()
 
+	common.RedisInit()
+
 	r := gin.Default()
 	customizerouter(r)
 	r.Run()
