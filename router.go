@@ -8,8 +8,9 @@ import (
 func customizerouter(r *gin.Engine) {
 	r.GET("/ping", controller.Pong)
 	r.POST("/judge", controller.Hit)
-	r.POST("/addRule", controller.AddRule)
-	r.POST("/deleteRule", controller.DeleteRule)
-	r.POST("/disableRule", controller.DisableRule)
-	r.POST("/enableRule", controller.EnableRule)
+	r.GET("/rule", controller.GetRule)
+	r.POST("/rule", controller.AddRule)
+	r.DELETE("/rule/:id", controller.DeleteRule)
+	r.POST("/disable-rule", controller.DisableRule)
+	r.POST("/enable-rule", controller.EnableRule)
 }

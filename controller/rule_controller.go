@@ -47,7 +47,7 @@ func Hit(c *gin.Context) {
 		if !utils.IsUpdateVersionAvailable(updateVersionCode, rules[index].MinUpdateVersionCode, rules[index].MaxUpdateVersionCode) {
 			continue
 		}
-		downloadUrl = rules[index].DownlaodUrl
+		downloadUrl = rules[index].DownloadUrl
 		md5  = rules[index].Md5
 		title = rules[index].Title
 		updateTips = rules[index].UpdateTips
@@ -55,6 +55,13 @@ func Hit(c *gin.Context) {
 		break
 	}
 	c.JSON(200, gin.H{"download_url": downloadUrl, "md5": md5, "title": title, "update_tips": updateTips, "update_version_code": updateVersionCode})
+}
+
+func GetRule (c *gin.Context){
+	DB := common.GetDB()
+	var allRules []model.Rule
+	DB.Find(&allRules)
+	c.JSON(200, gin.H{"message": "Success delete","body":allRules})
 }
 
 func AddRule(c *gin.Context)  {
@@ -90,7 +97,7 @@ func AddRule(c *gin.Context)  {
 		Channel:              channel,
 		Title:                title,
 		UpdateTips:           updateTips,
-		DownlaodUrl:          downloadUrl,
+		DownloadUrl:          downloadUrl,
 		IsAvailable:          true,
 	}
 
@@ -100,16 +107,26 @@ func AddRule(c *gin.Context)  {
 }
 
 func DeleteRule(c *gin.Context)  {
-	// 将Rule从数据库删除
-	c.JSON(200, gin.H{"message": "Success"})
+	// 将Rule从数据库删除 注意是软删除
+	DB := common.GetDB()
+	//deleteID:=c.PostForm("ID")
+	deleteID := c.Param("id")
+	DB.Delete(&model.Rule{},deleteID)
+	c.JSON(200, gin.H{"message": "Success delete","deleteRule":deleteID})
 }
 
 func DisableRule(c *gin.Context)  {
 	// 将Rule禁用
-	c.JSON(200, gin.H{"message": "Success"})
+	DB := common.GetDB()
+	disableID:=c.PostForm("ID")
+	DB.Model(&model.Rule{}).Where("ID=?",disableID).Update("is_available", false)
+	c.JSON(200, gin.H{"message": "success"})
 }
 
 func EnableRule(c *gin.Context)  {
 	// 将Rule启用
-	c.JSON(200, gin.H{"message": "Success"})
+	DB := common.GetDB()
+	enableID:=c.PostForm("ID")
+	DB.Debug().Model(&model.Rule{}).Where("ID=?",enableID).Update("is_available", true)
+	c.JSON(200, gin.H{"message": "success"})
 }

@@ -6,6 +6,7 @@ import (
 	"github.com/spf13/viper"
 	"os"
 	"techtrainingcamp-AppUpgrade/common"
+	"techtrainingcamp-AppUpgrade/middlewares"
 )
 
 func main() {
@@ -16,6 +17,7 @@ func main() {
 	common.RedisInit()
 
 	r := gin.Default()
+	r.Use(middlewares.Cors())
 	customizerouter(r)
 	r.Run()
 }

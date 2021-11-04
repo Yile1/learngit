@@ -16,7 +16,7 @@ type Rule struct {
 	Channel string `json:"channel"`
 
 	// Return Value
-	DownlaodUrl string `json:"downlaod_url"`
+	DownloadUrl string `json:"download_url"`
 	Md5 string `json:"md5"`
 	Title string `json:"title"`
 	UpdateTips string `json:"update_tips"`
