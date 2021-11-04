@@ -17,7 +17,7 @@ type Rule struct {
 
 	// Return Value
 	DownloadUrl string `json:"download_url"`
-	Md5 string `json:"md5"`
+	Md5 string `json:"md_5"`
 	Title string `json:"title"`
 	UpdateTips string `json:"update_tips"`
 	UpdateVersionCode string `json:"update_version_code"`
