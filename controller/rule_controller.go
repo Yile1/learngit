@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/cast"
 	"techtrainingcamp-AppUpgrade/common"
@@ -120,7 +119,6 @@ func DisableRule(c *gin.Context)  {
 	// 将Rule禁用
 	DB := common.GetDB()
 	disableID:=c.PostForm("ID")
-	fmt.Printf("%v",disableID)
 	DB.Model(&model.Rule{}).Where("ID=?",disableID).Update("is_available", false)
 	c.JSON(200, gin.H{"message": "success"})
 }
