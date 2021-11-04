@@ -17,6 +17,7 @@ func main() {
 	common.RedisInit()
 
 	r := gin.Default()
+	r.LoadHTMLGlob("./html/*")
 	r.Use(middlewares.Cors())
 	customizerouter(r)
 	r.Run()
