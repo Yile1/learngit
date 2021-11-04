@@ -11,7 +11,7 @@ var RedisClient *redis.Client
 func RedisInit() {
 	RedisClient = redis.NewClient(&redis.Options{
 		Addr:     fmt.Sprintf("%s:%s", viper.GetString("redis.host"), viper.GetString("redis.port")),
-		Password: viper.GetString("redis.auth"),
+		//Password: viper.GetString("redis.auth"),
 		DB:       0,
 	})
 

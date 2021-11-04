@@ -4,7 +4,7 @@ datasource:
   port: 3306
   database: appupgrade
   username: root
-  password: root
+  password: ANDsysu1204 #need to change
   charset: utf8
   loc: Asia/Shanghai
 redis:
