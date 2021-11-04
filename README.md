@@ -54,11 +54,14 @@
 |
 |- controller
 |   |- pong_controller.go: 暂时就一个ping函数，检查是否ping通
-|   |- rule_controller,go: 与rule有关的几个函数，检查rule,获取rule,添加和删除rule,启用和禁用rule
+|   |- rule_controller.go: 与rule有关的几个函数，检查rule,获取rule,添加和删除rule,启用和禁用rule
 |                           (这些都是与rule有关的行为，也许可以放在rule.go里面作为一个rule的class?)
 |
 |- front-end
 |   |- appupdate-admin: 管理员接口部分(这个我不太了解)
+|
+|- html
+|   |- form.html: 一个表单页面
 |
 |- middlewares 中间件
 |   |- cors.go: 前端有关接口?
