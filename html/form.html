@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>AppUpgrade Group12</title>
+</head>
+
+<body>
+    <main class="form">
+        <p>请上报有关参数</p>
+        <form name="reg"  method="get" action="/judge">
+            version: <input type="text" name="version"> <br>
+            device_platform: <input type="radio" name="device_platform" value="iOS" checked>iOS <input type="radio" name="device_platform" value="Android">Android <br>
+            device_id: <input type="text" name="device_id"><br>
+            os_api: <input type="text" name="os_api"><br>
+            channel: <input type="text" name="channel"><br>
+            update_version_code: <input type="text" name="update_version_code"><br>
+            aid: <input type="text" name="aid"><br>
+            cpu_arch: <input type="text" name="cpu_arch"><br>
+            <input type="submit" value="Submit">
+        </form>
+    </main>
+</body>
+</html>
