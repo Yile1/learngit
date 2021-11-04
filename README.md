@@ -35,3 +35,39 @@
 
 ### 需要关注的问题
 1. 参数校验的问题，避免Redis缓存穿透
+
+### 代码框架
+
+> @csy 下面是我就着我自己对咱们这个项目的理解写的一个文档，因为我有一些地方也不是特别理解，如果同学们发现有什么问题麻烦改一下，3q
+
+```
+|- main.go: 程序代码入口，做初始化工作并让gin跑起来
+|
+|- router.go: 路由，根据GET或POST方法以及输入路由到不同的函数
+|
+|- common
+|   |- database.go: 与mysql数据库连接
+|   |- redis.go: 与redis连接
+|
+|- config
+|   |- application.yml: 配置文件(用了viper)
+|
+|- controller
+|   |- pong_controller.go: 暂时就一个ping函数，检查是否ping通
+|   |- rule_controller,go: 与rule有关的几个函数，检查rule,获取rule,添加和删除rule,启用和禁用rule
+|                           (这些都是与rule有关的行为，也许可以放在rule.go里面作为一个rule的class?)
+|
+|- front-end
+|   |- appupdate-admin: 管理员接口部分(这个我不太了解)
+|
+|- middlewares 中间件
+|   |- cors.go: 前端有关接口?
+|
+|- model
+|   |- rule.go: rule结构体，定义了规则的字段
+|
+|- utils
+|   |- general_tools: 一些其他的发可以用到的函数
+```
+
+
