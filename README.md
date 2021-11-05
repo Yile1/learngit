@@ -55,7 +55,7 @@
 |   |- application.yml: 配置文件(用了viper)
 |
 |- controller
-|   |- pong_controller.go: Pong函数-检查是否ping通，Form函数-检查表单
+|   |- pong_controller.go: ping函数-检查是否ping通，Form函数-检查表单
 |   |- rule_controller.go: 与rule有关的几个函数，检查rule,获取rule,添加和删除rule,启用和禁用rule
 |                           (这些都是与rule有关的行为，也许可以放在rule.go里面作为一个rule的class?)
 |
