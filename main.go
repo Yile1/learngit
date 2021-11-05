@@ -11,6 +11,7 @@ import (
 
 func main() {
 	InitConfig()
+
 	db := common.InitDB()
 	defer db.Close()
 
