@@ -35,6 +35,8 @@
 
 ### 需要关注的问题
 1. 参数校验的问题，避免Redis缓存穿透
+2. Redis大Key
+3. Redis热点Rule存储与更新
 
 ### 代码框架
 
@@ -47,13 +49,13 @@
 |
 |- common
 |   |- database.go: 与mysql数据库连接
-|   |- redis.go: 与redis连接
+|   |- redis.go: redis预热并连接
 |
 |- config
 |   |- application.yml: 配置文件(用了viper)
 |
 |- controller
-|   |- pong_controller.go: 暂时就一个ping函数，检查是否ping通
+|   |- pong_controller.go: Pong函数-检查是否ping通，Form函数-检查表单
 |   |- rule_controller.go: 与rule有关的几个函数，检查rule,获取rule,添加和删除rule,启用和禁用rule
 |                           (这些都是与rule有关的行为，也许可以放在rule.go里面作为一个rule的class?)
 |
@@ -68,6 +70,9 @@
 |
 |- model
 |   |- rule.go: rule结构体，定义了规则的字段
+|
+|- resource
+|   |- whiteList.txt: 白名单
 |
 |- utils
 |   |- general_tools: 一些其他的发可以用到的函数

@@ -3,15 +3,39 @@ package utils
 import (
 	"strconv"
 	"strings"
+	"techtrainingcamp-AppUpgrade/common"
 )
 
+func SplitDeviceStringToList(str string)  []string{
+	return strings.Split(str,",")
+}
 
-func IsStringInArray(target string, str_array []string) bool {
-	for _, element := range str_array{
+func IsStringInArray(target string, strArray []string) bool {
+	for _, element := range strArray {
 		if target == element{
 			return true
 		}
 	}
+	return false
+}
+
+func IsDeviceIdInWhiteList(deviceId string, newDeviceIdListStr string, deletedDeviceIdListStr string) bool {
+	newDeviceIdList := SplitDeviceStringToList(newDeviceIdListStr)
+	deletedDeviceIdList := SplitDeviceStringToList(deletedDeviceIdListStr)
+
+	if IsStringInArray(deviceId, newDeviceIdList) {
+		return true
+	}
+
+	if IsStringInArray(deviceId, deletedDeviceIdList) {
+		return false
+	}
+
+	RDC := common.GetRdc()
+	if RDC.SIsMember("WhiteList", deviceId).Val() {
+		return true
+	}
+
 	return false
 }
 
@@ -61,8 +85,3 @@ func IsUpdateVersionAvailable(updateVersionCode string, minUpdateVersionCode str
 	flag2 := CompareVersion(currVersion, maxVersion)
 	return flag1 && flag2
 }
-
-func SplitDeviceStringToList(str string)  []string{
-	return strings.Split(str,",")
-}
-
