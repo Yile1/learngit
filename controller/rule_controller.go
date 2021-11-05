@@ -67,6 +67,13 @@ func GetRule (c *gin.Context){
 func AddRule(c *gin.Context)  {
 	// 将Rule添加到数据库
 	DB := common.GetDB()
+	//尝试使用ShouldBind直接绑定，没有成功
+	//newRule := model.Rule{}
+	//if err := c.ShouldBindJSON(&newRule); err == nil {
+	//	c.JSON(200, gin.H{"message": "Success", "newRule": newRule})
+	//} else {
+	//	c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	//}
 
 	platform := c.PostForm("platform")
 	updateVersionCode := c.PostForm("update_version_code")

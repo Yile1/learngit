@@ -11,12 +11,14 @@ import (
 
 func main() {
 	InitConfig()
+
 	db := common.InitDB()
 	defer db.Close()
 
 	common.RedisInit()
 
 	r := gin.Default()
+	r.LoadHTMLGlob("./html/*")
 	r.Use(middlewares.Cors())
 	customizerouter(r)
 	r.Run()

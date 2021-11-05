@@ -7,7 +7,8 @@ import (
 
 func customizerouter(r *gin.Engine) {
 	r.GET("/ping", controller.Pong)
-	r.POST("/judge", controller.Hit)
+	r.GET("/form", controller.Form)
+	r.GET("/judge", controller.Hit)
 	r.GET("/rule", controller.GetRule)
 	r.POST("/rule", controller.AddRule)
 	r.DELETE("/rule/:id", controller.DeleteRule)
