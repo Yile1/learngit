@@ -35,7 +35,7 @@ func Hit(c *gin.Context) {
 		if platform != rules[index].Platform || channel != rules[index].Channel{
 			continue
 		}
-		if !utils.IsStringInArray(deviceId, utils.SplitDeviceStringToList(rules[index].NewDeviceIdList)) {
+		if !utils.IsDeviceIdInWhiteList(deviceId, rules[index].NewDeviceIdList, rules[index].DeletedDeviceIdList) {
 			continue
 		}
 		if cpuArch != rules[index].CpuArch {
